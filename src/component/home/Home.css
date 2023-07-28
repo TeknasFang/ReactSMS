@@ -1,0 +1,29 @@
+.home{
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    padding: 5rem 8rem;
+}
+
+input{
+    width: 100%;
+}
+
+.input-row{
+    position: relative;
+}
+.input-row span{
+    position: absolute;
+    color: red;
+    bottom: 0;
+    left: 170px;
+    transform: translateY(100%);
+    font-size: 14px;
+}
+table{
+    width: 100%;
+}
+
+td.action{
+    width: 170px;
+}

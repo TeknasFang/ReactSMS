@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React,{useEffect} from "react";
 import axios from "axios";
 import UpdateStudent from "./UpdateStudent";
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from 'prop-types';
+
 import './loader.css'
 import {
-  getUser,
-  increment,
   setStudent,
   deleteStudent,
 } from "../../../redux/action";
@@ -34,9 +34,8 @@ const StudentData = (props) => {
 
   let studentTable =
     !studentData.length == 0 ? (
-      studentData.map((student, idx) => (
-        <tr>
-          <th scope="row">{idx + 1}</th>
+      studentData.map((student, id) => (
+        <tr key={id}>
           <td>{student.name}</td>
           <td>{student.standard}</td>
           <td>{student.rollNumber}</td>
@@ -52,43 +51,54 @@ const StudentData = (props) => {
               mobileNumber={student.mobileNumber}
               setChanges={props.setChanges}
             />
-            <button
-              className="btn btn-danger"
+            <span
+              className=""
               onClick={() => {
                 deleteStudentx(student._id);
               }}
             >
-              Delete
-            </button>
+              {/* Delete */}
+              <i className="fa-solid fa-trash"></i>
+            </span>
           </td>
         </tr>
       ))
     ) : (
       <div>
-      <div class="loader">
-  <div class="justify-content-center jimu-primary-loading"></div>
+      <div className="loader">
+  <div className="justify-content-center jimu-primary-loading"></div>
 </div></div>
     );
 
   return (
     <div className="student-data mt-5">
       {/* {JSON.stringify(studentData)} */}
-      <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th scope="col"></th>
-            <th scope="col">Name</th>
+      <div className="table-container">
+
+      <table>
+      <thead>
+        <tr>
+        <th scope="col">Name</th>
             <th scope="col">Standard</th>
             <th scope="col">Roll Number</th>
             <th scope="col">Email</th>
             <th scope="col">Mobile Number</th>
             <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>{studentData && studentTable}</tbody>
-      </table>
+        </tr>
+      </thead>
+      
+      <tbody>{studentData && studentTable}</tbody>
+
+       
+      
+    </table>
+      </div>
     </div>
   );
 };
+
+StudentData.propTypes={
+  setChanges:PropTypes.func
+}
 
 export default StudentData;

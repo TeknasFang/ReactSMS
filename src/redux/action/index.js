@@ -1,4 +1,4 @@
-import { DEC, SET_AUTH, INC, LOAD_STD, L_STD, SET_STUDENT,DELETE_STUDENT, ADD_STUDENT, UPDATE_STUDENT } from "./actionTypes";
+import { DEC, SET_AUTH, INC, L_STD, SET_STUDENT,DELETE_STUDENT, ADD_STUDENT, UPDATE_STUDENT } from "./actionTypes";
 
 export const increment = (num)=>({type:INC,payload:num})
 export const decrement = (num)=>({type:DEC,payload:num})

@@ -6,7 +6,6 @@ export const authReducer = (state=initialState,action)=>{
             console.log(action.type);
             console.log(action.payload);
         return action.payload
-          break;
         case "decrement":
           
           break;

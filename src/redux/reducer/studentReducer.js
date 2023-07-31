@@ -1,5 +1,5 @@
 import axios from "axios";
-let initialState = [];
+
 export const studentReducer = (state = [], action) => {
     switch (action.type) {
         case "SET_STUDENT":
@@ -22,7 +22,7 @@ export const studentReducer = (state = [], action) => {
             console.log(action.type);
             console.log(action.payload);
             axios.put("http://localhost:5800/student/"+action.payload.id, action.payload.data);
-            var newState = state.map(student=>{if(student._id==action.payload.id){
+            newState = state.map(student=>{if(student._id==action.payload.id){
                 return {_id:action.payload.id,...action.payload.data}
             }else{
                 return student

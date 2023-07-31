@@ -1,15 +1,30 @@
-.home{
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    padding: 5rem 8rem;
+.home {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
-input{
-    width: 100%;
+input {
+  width: 100%;
 }
-
-.input-row{
+.my-modal {
+  width: 60vw !important; /* Occupy the 90% of the screen width */
+  max-width: 90vw;
+}
+form.student-form,
+form.update-form {
+  background-color: transparent;
+  height: fit-content;
+  padding-top: 0px;
+}
+form.student-form input,
+form.update-form input {
+  margin-bottom: 10px !important;
+}
+select:active {
+  outline: none !important;
+}
+/* .input-row{
     position: relative;
 }
 .input-row span{
@@ -19,11 +34,63 @@ input{
     left: 170px;
     transform: translateY(100%);
     font-size: 14px;
-}
-table{
-    width: 100%;
+} */
+table {
+  width: 100%;
 }
 
-td.action{
-    width: 170px;
+td.action {
+  width: 170px;
+}
+.table-container {
+  margin: 50px auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+thead {
+  background-color: #e4e4e4;
+}
+
+th,
+td {
+  padding: 9px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: bold;
+}
+
+tbody tr:hover {
+  background-color: #f2f2f2;
+}
+.fa-pen-to-square {
+  color: blue;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.fa-trash {
+  color: red;
+  cursor: pointer;
+}
+
+.sidebar{
+  min-width: 120px;
+  background-color: var(--light-blue);
+  height: 100vh;
+}
+@media (max-width:768px){
+  .sidebar{
+    height: 0vh;
+    background-color: transparent;
+  }
 }

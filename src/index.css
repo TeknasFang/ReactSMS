@@ -1,3 +1,13 @@
+:root {
+  --card-bc:rgb(211, 211, 211);
+  --error: rgb(255, 15, 15);
+  --black:#080708;
+  --light-blue:#3B60E4;
+  --light-purple:#7765E3;
+  --thistle:#C8ADC0;
+  --champagne-pink:#EDD3C4;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

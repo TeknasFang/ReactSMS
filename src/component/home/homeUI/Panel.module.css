@@ -1,0 +1,11 @@
+.panel{
+    height: 100%;
+    background-color: #fff;
+    padding: 4rem 6rem;
+}
+
+@media (max-width:600px){
+    .panel{
+        padding: 1rem 2rem;
+    }
+}

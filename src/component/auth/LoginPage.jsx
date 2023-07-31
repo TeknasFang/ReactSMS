@@ -1,71 +1,80 @@
-import React, { useState, useEffect, useRef } from 'react';
-import {useNavigate} from "react-router-dom"
-import axios from "axios"
-import { loadStudentData, setAuth } from "../../redux/action/index";
-import './LoginPage.css'
-import { useDispatch, useSelector} from 'react-redux';
+import React, { useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import {  setAuth } from "../../redux/action/index";
+import "./LoginPage.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 const LoginPage = () => {
-  let dispatch = useDispatch()
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [errMsg,setErrMsg]=useState('')
+  let dispatch = useDispatch();
+  const [errMsg, setErrMsg] = useState("");
   const navigate = useNavigate();
-  const authDetails = useSelector(state=>state.authReducer.data)
+  const authDetails = useSelector((state) => state.authReducer.data);
 
-  useEffect(()=>{
-    axios.get("http://localhost:5800/auth").then(res=>{
-      console.log(res)
-      dispatch(setAuth(res.data))
-      })
-  },[])
+  useEffect(() => {
+    axios.get("http://localhost:5800/auth").then((res) => {
+      console.log(res.data.data);
+      dispatch(setAuth(res.data));
+    });
+  }, []);
 
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(authDetails)
-    authDetails.map(auth=>{
-        if(auth.username==username&&auth.password==password){
-            navigate("/home")
-        }
-    })
-    setErrMsg("Invalid credentials!!!")
-
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    authDetails.map((auth) => {
+      if (auth.username == data.username && auth.password == data.password) {
+        navigate("/home");
+      }
+    });
+    setErrMsg("Invalid credentials!!!");
   };
 
-  // useEffect(()=>{
-  //   setTimeout(()=>{
-  //     axios.get("http://localhost:5800/auth").then(res=>setAuthDetails(res.data))
-  //   },2000)
-  // },[])
-
   return (
-      <div className="login-page ">
-        {/* {JSON.stringify(authDetails)} */}
-    <form onSubmit={handleSubmit}>
-      <h2 className="mb-4">Login</h2>
-      <div>
-          <label>Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-          />
-      </div>
-      <div>
-          <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          />
-      </div>
-      <button type="submit" className="btn btn-success mt-3">Login</button>
-    {errMsg     &&   <><p className="error">{errMsg}</p></>}
-    </form>
-    </div>
+    <div className="login-page ">
+      {/* {JSON.stringify(authDetails)} */}
+      <img className="logo" src="/images/logo.png" alt="not_found" />
+      <form onSubmit={handleSubmit(onSubmit)}>
+      <h2 className="mx-5">L O G I N </h2>
+      <div className="input-container">
 
+        <input
+          className={errors.username && "invalid"}
+          placeholder="username"
+          {...register("username", { required: true, minLength: 4 })}
+          />
+        {errors.username?.type === "required" && (
+          <span className="">Username is a required field</span>
+          )}
+        {errors.username?.type === "minLength" && (
+          <span>Username must be 4 characters long</span>
+          )}
+          </div>
+      <div className="input-container">
+
+
+        <input
+          className={errors.password && "invalid"}
+          placeholder="password"
+          {...register("password", { required: true, minLength: 4 })}
+        />
+        {/* errors will return when field validation fails  */}
+        {errors.password?.type === "required" && (
+          <span>Password is a required field</span>
+          )}
+        {errors.password?.type === "minLength" && (
+          <span>Password must be 4 characters long  </span>
+          )}
+          </div>
+          <div className="submit-container">
+        <button type="submit" >L O G I N </button>
+          </div>
+    {errMsg     &&   <><p className="error">{errMsg}</p></>}
+      </form>
+    </div>
   );
 };
 

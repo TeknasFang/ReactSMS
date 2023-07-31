@@ -1,0 +1,107 @@
+.sidebar-container {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0px;
+  width: 16vw;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  transition: all 0.3s ease;
+  background-color: var(--light-blue);
+  padding: 1rem;
+}
+
+.sidebar-container > div {
+  padding: 1rem;
+}
+.fa-bars {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.sidebar-icon {
+  display: none;
+}
+
+.profile-picture-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-picture {
+  width: 70px;
+  height: 70px;
+  background-color: wheat;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.parent-content {
+  position: relative;
+  transition: all 0.3s ease;
+  max-height: 25px;
+  overflow: hidden;
+  padding: 0;
+  margin-bottom: 10px;
+  padding-left: 2rem;
+}
+.parent-content span, i {
+    cursor: pointer;
+}
+.child-content {
+  display: block;
+  margin-top: 5px;
+}
+.parent-content:hover {
+  max-height: 100px;
+  color: white;
+}
+.parent-content i{
+    position: absolute;
+    left: 0;
+    top: 4px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-icon {
+    display: inline-block;
+  }
+  .sidebar-container {
+    width: 20px;
+    background-color: transparent;
+  }
+  .sidebar-container.active {
+    background-color: var(--light-blue);
+    width: 33vw;
+  }
+  .sidebar-container > div {
+    display: none;
+  }
+  .sidebar-container.active > div {
+    display: block;
+  }
+}
+
+@media (max-width: 600px) {
+
+    .sidebar-container.active {
+      background-color: var(--light-blue);
+      width: 40vw;
+    }
+
+  }
+
+  @media (max-width: 450px) {
+
+    .sidebar-container.active {
+      background-color: var(--light-blue);
+      width: 50vw;
+    }
+
+  }
+
+  .active{
+    color: red;
+    background-color: #fff;
+  }

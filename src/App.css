@@ -7,7 +7,7 @@
 .App{
   background-color: var(--thistle);
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .row > * {
   padding-left: 0 !important;

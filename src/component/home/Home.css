@@ -1,9 +1,16 @@
 .home {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
-
+/* input-container */
+.ic{
+  position: relative;
+  }
+  .ec{
+    position: absolute ;
+    bottom: 0px;
+  }
 input {
   width: 100%;
 }

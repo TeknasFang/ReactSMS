@@ -28,6 +28,9 @@ export const studentReducer = (state = [], action) => {
                 return student
             }})
             return newState;
+        case "REGISTER_STUDENT":
+            axios.post("http://localhost:5800/student/register",action.payload)
+            return state
         default:
             console.log("UNKNOWN ACTION_TYPE");
             return state;

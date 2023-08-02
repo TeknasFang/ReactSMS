@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {  setAuth } from "../../redux/action/index";
+import {  setAuth, setCurrentUser } from "../../redux/action/index";
 import "./LoginPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -27,7 +27,27 @@ const LoginPage = () => {
     console.log(data);
     authDetails.map((auth) => {
       if (auth.username == data.username && auth.password == data.password) {
-        navigate("/home");
+        let role = auth.role
+        if(role=='admin'){
+            console.log("role is admin")
+            axios.get("http://localhost:5800/auth/"+auth.username).then((res) => {
+              console.log("current user : ");
+              console.log(res.data.data)
+              let userInfo = res.data.data
+              dispatch(setCurrentUser(userInfo))
+              // dispatch(setAuth(res.data));
+            });
+        }else if(role=='student'){
+          console.log("role is student")
+          axios.get("http://localhost:5800/student/"+auth.username).then((res) => {
+            console.log("current user : ");
+            let userInfo = res.data.data
+            dispatch(setCurrentUser(userInfo))
+
+            // dispatch(setAuth(res.data));
+          });
+        }
+        navigate('/home/'+role+'/dashboard')
       }
     });
     setErrMsg("Invalid credentials!!!");
@@ -35,8 +55,8 @@ const LoginPage = () => {
 
   return (
     <div className="login-page ">
-      {/* {JSON.stringify(authDetails)} */}
-      <img className="logo" src="/images/logo.png" alt="not_found" />
+      {JSON.stringify(authDetails)}
+      {/* <img className="logo" src="/images/logo.png" alt="not_found" /> */}
       <form onSubmit={handleSubmit(onSubmit)}>
       <h2 className="mx-5">L O G I N </h2>
       <div className="input-container">

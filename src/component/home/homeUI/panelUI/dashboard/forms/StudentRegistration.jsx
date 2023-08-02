@@ -22,21 +22,21 @@ const StudentRegistration = () => {
     setImg(e.target.files[0])
 }
   const onSubmit = (data) => {
-    let formData = new FormData()
-    formData.append('file', img)
-    console.log('sub')
-    axios.post('http://localhost:5800/student/uploadImage',formData).then(res=>console.log('ok'))
-    .catch(err=>console.log(err))
+    // let formData = new FormData()
+    // formData.append('file', img,'hi.png')
+    // axios.post('http://localhost:5800/student/uploadImage',formData).then(res=>console.log('ok'))
+    // .catch(err=>console.log(err))
     let studentData = []
     studentData.push(data)
     studentData.push(img)
-    // dispatch(registerStudent(studentData));
+    dispatch(registerStudent(studentData));
   };
 
   return (
     <div className={styles.container}>
       <h2>Student Registration Form</h2>
       <form className={styles.form} onSubmit={handleSubmit(onSubmit)} enctype="multipart/form-data">
+        <h5>Student Details</h5>
         <div className="row">
           <div className="col-md-6 ic">
             <label for="firstName">First Name</label>
@@ -250,7 +250,7 @@ const StudentRegistration = () => {
               <InputError error={errors.input.message} />
             )}
         </div> */}
-        <h3>Parent Details</h3>
+        <h5>Parent Details</h5>
         <div className="row">
           <div className="col-sm-6 ic">
             <label for="parentFirstName">First Name</label>

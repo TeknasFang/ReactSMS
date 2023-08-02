@@ -5,10 +5,13 @@ import StudentData from "./student/StudentData";
 import Sidebar from "./homeUI/Sidebar";
 import Navbar from "./homeUI/Navbar";
 import Panel from "./homeUI/Panel";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   const [changes, setChanges] = useState(0);
-  console.log("home");
+  let currentUserInfo = useSelector(state=>state.currentUserInfoReducer)
+  console.log("home current user : ");
+  console.log(currentUserInfo)
 
   return (
     <>

@@ -1,16 +1,19 @@
 
 .form {
   border-radius: 1px !important;
-  background-color: transparent !important
+  background-color: transparent !important;
+  padding: 0px !important;
 }
-
-
 .input{
   width: 100% !important;
   border-radius: 5px !important;
+  background-color: transparent !important;
+}
+.input[type='file']{
+  width: 100% !important;
 }
 input:focus,select:focus{
-    border-color: #007BFF;
+    border-color: var(--mustard);
 }
 
 /* Custom styles for the select element and its options */
@@ -47,10 +50,11 @@ select option:checked {
   color: #fff;
 }
 
-  /* .container {
-    margin: 0px auto;
+.container {
+    margin-bottom: 3rem ;
     border-radius: 5px;
   }
+    /* 
   h2 {
     text-align: center;
     margin-bottom: 30px;

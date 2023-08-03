@@ -10,24 +10,21 @@ import Dashboard from "./component/home/homeUI/panelUI/dashboard/Dashboard";
 import StudentRegistration from "./component/home/homeUI/panelUI/dashboard/forms/StudentRegistration";
 import axios from "axios";
 import StudentList from './component/student/StudentList';
+import StudentUpdate from "./component/home/homeUI/panelUI/dashboard/forms/StudentUpdate";
 
 function App() {
-  let [base64String,setBase64String] = useState('')
-  useEffect(()=>{
-      axios.get("http://localhost:5800/student").then(res=>{
-        console.log("Student data ")
-        let singleData = res.data[0]
-        let imgBuffer = singleData.studentImg.data.data
-        setBase64String(btoa(String.fromCharCode(...new Uint8Array(imgBuffer))))
-        setImg(base64String)
-      }).catch(err=>console.log(err))
-  },[])
+  // let [base64String,setBase64String] = useState('')
+  // useEffect(()=>{
+  //     axios.get("http://localhost:5800/student").then(res=>{
+      
+  //       let imgBuffer = singleData.studentImg.data.data
+  //       setBase64String(btoa(String.fromCharCode(...new Uint8Array(imgBuffer))))
+  //       setImg(base64String)
+  //     }).catch(err=>console.log(err))
+  // },[])
   return (
 
     <div className="App">
-      <div style={{position:'absolute',bottom:0,right:0}}>
-      {/* {<img src={`data:image/png;base64,${base64String}`} alt="noe"/>} */}
-      </div>
       <Provider store={store}>
         <BrowserRouter>
           <Routes>
@@ -36,6 +33,7 @@ function App() {
               <Route path=":role/dashboard" element={<Dashboard />}></Route>
               <Route path=":role/register/student" element={<StudentRegistration/>}></Route>
               <Route path=":role/list/student" element={<StudentList/>}></Route>
+              <Route path=":role/update/student/:username" element={<StudentUpdate/>}></Route>
             </Route>
           </Routes>
         </BrowserRouter>

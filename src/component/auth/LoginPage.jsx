@@ -2,7 +2,7 @@ import React, { useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import {  setAuth, setCurrentUser } from "../../redux/action/index";
-import "./LoginPage.css";
+import styles from "./LoginPage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 const LoginPage = () => {
@@ -35,7 +35,7 @@ const LoginPage = () => {
               console.log(res.data.data)
               let userInfo = res.data.data
               dispatch(setCurrentUser(userInfo))
-              // dispatch(setAuth(res.data));
+              navigate('/home/'+role+'/dashboard')
             });
         }else if(role=='student'){
           console.log("role is student")
@@ -43,22 +43,26 @@ const LoginPage = () => {
             console.log("current user : ");
             let userInfo = res.data.data
             dispatch(setCurrentUser(userInfo))
-
-            // dispatch(setAuth(res.data));
+            navigate('/home/'+role+'/dashboard')
           });
         }
-        navigate('/home/'+role+'/dashboard')
+      }else{
+        setErrMsg("Invalid credentials!!!");
       }
     });
-    setErrMsg("Invalid credentials!!!");
   };
 
   return (
     <div className="login-page ">
-      {JSON.stringify(authDetails)}
-      {/* <img className="logo" src="/images/logo.png" alt="not_found" /> */}
+      {/* {JSON.stringify(authDetails)} */}
       <form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className="mx-5">L O G I N </h2>
+        <div className="row">
+          <div className="col-6">
+          <h2 className="mx-5">L O G I N </h2>
+          </div>
+            <div className="c0l-6"></div>
+        </div>
+      
       <div className="input-container">
 
         <input

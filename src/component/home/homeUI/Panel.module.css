@@ -1,11 +1,22 @@
 .panel{
     background-color: #fff;
-    padding: 4rem 6rem;
+    padding: 4rem 16rem;
     overflow: scroll;
+    background-color: var(--dark-white);
+    height: 90vh;
 }
-
+@media (max-width:900px){
+    .panel{
+        padding: 4rem 10rem;
+    }
+}
 @media (max-width:600px){
     .panel{
-        padding: 1rem 2rem;
+        padding: 4rem;
+    }
+}
+@media (max-width:400px){
+    .panel{
+        padding: 2rem;
     }
 }

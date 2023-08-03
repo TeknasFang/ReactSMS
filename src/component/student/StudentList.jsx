@@ -1,96 +1,119 @@
-import React,{useRef, useEffect} from "react";
-import ReactTable from 'react-table'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { useSelector } from "react-redux";
+import React, { useRef, useEffect,useState } from "react";
+import ReactTable from "react-table";
+import styles from './StudentList.module.css'
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+import { useSelector, useDispatch } from "react-redux";
 import StudentTable from "./StudentTable";
+import { useNavigate } from "react-router-dom";
+import { deleteStudent } from "../../redux/action";
 const StudentList = () => {
-
-
-  function createData(
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-  ) {
-    return { name, calories, fat, carbs, protein };
-  }
-  
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-  ];
-
+  const navigate = useNavigate();
+  let dispatch = useDispatch();
+  let sInfo = useRef()
   let studentData = useSelector((state) => state.studentReducer);
-  let updatedData = studentData.map((data) => {
-    delete data.studentImg;
-    delete data._id;
-    delete data.username;
-    delete data.password;
-    delete data.email;
-    delete data.parentFirstName;
-    delete data.parentLastName;
-    delete data.parentEmail;
-    delete data.adress;
-    delete data.__v;
-    return data;
-  });
+  //student-info card details 
+  let studentName ;
+  let [studentInfo,setStudentInfo] = useState({fullName:''})
+
+  const handleUpdate = (username) => {
+    navigate("/home/admin/update/student/" + username);
+  };
+
+  const handleDelete = (username) => {
+    dispatch(deleteStudent(username));
+  };
 
 
-   
-     
+  const handleMouseEnter = (e,student)=>{
+    console.log(e.clientX)
+    console.log(e.clientY)
+    console.log(sInfo.current)
+    sInfo.current.style.backgroundColor = `black`
+    sInfo.current.style.left = e.clientX+"px"
+    sInfo.current.style.top = e.clientY+"px"
+    sInfo.current.style.display = "block"
+    console.log(e.clientY)
+    setStudentInfo("sanket")
+  }
+  const handleMouseLeave = ()=>{
+    sInfo.current.style.display = "none"
+
+  }
+
+  
 
   return (
     <div>
-      {JSON.stringify(updatedData)}
+      {/* {JSON.stringify(studentData)} */}
       {/* <StudentTable/> */}
-      <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
-        <TableHead>
-          <TableRow>
-
-
-            <TableCell>Full Name</TableCell>
-            <TableCell align="right">Standard</TableCell>
-            <TableCell align="right">dob</TableCell>
-            <TableCell align="right">Stream</TableCell>
-            <TableCell align="right">Phone</TableCell>
-            <TableCell align="right">Parent Phone</TableCell>
-            <TableCell align="right">Adress</TableCell>
-            <TableCell align="right"></TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {updatedData.map((row) => (
-            <TableRow
-              key={row.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.firstName+ ' '+row.lastName}
-              </TableCell>
-              <TableCell align="right">{row.standard}</TableCell>
-              <TableCell align="right">{row.dob}</TableCell>
-              <TableCell align="right">{row.stream}</TableCell>
-              <TableCell align="right">{row.phone}</TableCell>
-              <TableCell align="right">{row.parentPhone}</TableCell>
-              <TableCell align="right">{row.address}</TableCell>
-              <TableCell align="right"><i className="fa-solid fa-trash"></i><i className="fa-solid fa-trash"></i></TableCell>
-              
+      {JSON.stringify(studentInfo)}
+      <h3 style={{textAlign:'center',letterSpacing:'10px',marginBottom:'3rem'}}>STUDENT DATA</h3>
+      <TableContainer sx={{ overflowX:'scroll' }}  component={Paper}>
+        <Table sx={{ minWidth: 820,maxHeight:1000, overflowX:'scroll' }} aria-label="simple table">
+          <TableHead sx={{backgroundColor:'black',color:'rgb(252, 163, 17)'}}>
+            <TableRow >
+              <TableCell sx={{color:'rgb(252, 163, 17)'}}>Full Name</TableCell>
+              <TableCell sx={{color:'rgb(252, 163, 17)'}} align="right">Standard</TableCell>
+              <TableCell sx={{color:'rgb(252, 163, 17)'}} align="right">dob</TableCell>
+              <TableCell sx={{color:'rgb(252, 163, 17)'}} align="right">Stream</TableCell>
+              <TableCell sx={{color:'rgb(252, 163, 17)'}} align="right">Phone</TableCell>
+              <TableCell sx={{color:'rgb(252, 163, 17)'}} align="right">Parent Phone</TableCell>
+              <TableCell sx={{color:'rgb(252, 163, 17)'}} align="right">Adress</TableCell>
+              <TableCell sx={{color:'rgb(252, 163, 17)'}} align="right"></TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {studentData.map((row) => (
+              <TableRow
+                key={row.name}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {row.firstName + " " + row.lastName}
+                </TableCell>
+                <TableCell align="right">{row.standard}</TableCell>
+                <TableCell align="right">{row.dob}</TableCell>
+                <TableCell align="right">{row.stream}</TableCell>
+                <TableCell align="right">{row.phone}</TableCell>
+                <TableCell align="right">{row.parentPhone}</TableCell>
+                <TableCell align="right">{row.address}</TableCell>
+                <TableCell align="right">
+                  <i
+                    onClick={(e) => {
+                      handleUpdate(row.username);
+                    }}
+                    class="fa-solid fa-pen"
+                  ></i>
+                  <i
+                    onClick={(e) => {
+                      handleDelete(row.username);
+                    }}
+                    className="fa-solid fa-trash mx-2"
+                  ></i>
+                  
+                  <i className="fa-solid fa-circle-info" onMouseLeave={handleMouseLeave} onMouseEnter={(e)=>{
+                    handleMouseEnter(e,row)
+                  }}></i>
+                  
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <div className={styles.studentInfo} ref={sInfo}>
+        aas
+                  <div className={styles.studentCard}>
+                    a,b,c,d {studentInfo}
+                  </div>
+                </div>
+
     </div>
   );
 };

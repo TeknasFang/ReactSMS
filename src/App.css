@@ -1,14 +1,6 @@
-*{
-  box-sizing: border-box;
-  margin: 0;
-  
-}
-
-.App{
-  background-color: var(--thistle);
-  height: 100vh;
-  /* overflow: hidden; */
-}
 .row > * {
   padding-left: 0 !important;
+}
+.TableHead{
+  background-color: var(--dark-blue);
 }

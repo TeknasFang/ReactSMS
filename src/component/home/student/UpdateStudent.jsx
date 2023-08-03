@@ -5,7 +5,10 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { updateStudent } from "../../../redux/action";
 import PropTypes from 'prop-types';
-const UpdateStudent = (props) => {
+import { useParams } from "react-router-dom";
+const UpdateStudent = () => {
+
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -23,10 +26,9 @@ const UpdateStudent = (props) => {
   return (
     <>
       <span onClick={handleShow}>
-        {/* Update */}
+        
         <i className="fa-regular fa-pen-to-square"></i>
       </span>
-
       <Modal dialogClassName="my-modal" className="" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title><span style={{letterSpacing:'7px',marginLeft:'100px'}}> UPDATE STUDENT</span></Modal.Title>

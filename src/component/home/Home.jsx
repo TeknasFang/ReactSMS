@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./Home.css";
+import axios from "axios";
 import AddStudent from "./student/AddStudent";
 import StudentData from "./student/StudentData";
 import Sidebar from "./homeUI/Sidebar";
 import Navbar from "./homeUI/Navbar";
 import Panel from "./homeUI/Panel";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setStudent } from "../../redux/action";
 const Home = () => {
+  let dispatch = useDispatch()
   const [changes, setChanges] = useState(0);
-  let currentUserInfo = useSelector(state=>state.currentUserInfoReducer)
   console.log("home current user : ");
-  console.log(currentUserInfo)
+  useEffect(()=>{
+    axios.get("http://localhost:5800/student").then((res) => {
+        dispatch(setStudent(res.data));
+      });
+  },[])
+
 
   return (
     <>

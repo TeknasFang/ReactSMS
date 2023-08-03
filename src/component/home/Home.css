@@ -92,7 +92,7 @@ tbody tr:hover {
 
 .sidebar{
   min-width: 120px;
-  background-color: var(--light-blue);
+  background-color: var(--dark-blue);
   height: 100vh;
 }
 @media (max-width:768px){

@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React,{useState} from "react";
 import styles from "./form.module.css";
 import InputError from "../../../../../ui/InputError";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { registerStudent } from "../../../../../../redux/action";
-import StudentData from "../../../../student/StudentData";
-import { useNavigate } from "react-router-dom";
-const StudentRegistration = () => {
+import {updateStudent } from "../../../../../../redux/action";
+import StudentData from '../../../../student/StudentData';
+import { useParams, useNavigate} from "react-router-dom";
+const StudentUpdate = (props) => {
+  let params=useParams()
+  let username = params.username
+  let navigate= useNavigate()
+  let studentData = useSelector((state) => state.studentReducer);
+  let filteredstudentData = studentData.filter((student)=>student.username==username)
+  let studentToUpdate = filteredstudentData[0]
   let dispatch = useDispatch();
-  let [img, setImg] = useState(null);
-  let navigate = useNavigate();
+  let [img,setImg]=useState(null)
 
   const {
     register,
@@ -20,35 +25,29 @@ const StudentRegistration = () => {
   } = useForm();
 
   function onFileChange(e) {
-    console.log(e.target.files);
-    setImg(e.target.files[0]);
-  }
+    console.log(e.target.files)
+    setImg(e.target.files[0])
+}
   const onSubmit = (data) => {
-    let studentData = [];
-    studentData.push(data);
-    studentData.push(img);
-    dispatch(registerStudent(studentData));
-    navigate("/home/admin/list/student");
+    let updatedData = {...data,username}
+      dispatch(updateStudent(updatedData))
+      navigate("/home/admin/list/student")
   };
 
   return (
     <div className={styles.container}>
-      <h3
+
+<h3
         style={{
           textAlign: "center",
           letterSpacing: "10px",
           marginBottom: "3rem",
         }}
       >
-        STUDENT REGISTRATION
+        UPDATE STUDENT 
       </h3>
-
-      <form
-        className={styles.form}
-        onSubmit={handleSubmit(onSubmit)}
-        enctype="multipart/form-data"
-      >
-        <h6
+      <form className={styles.form} onSubmit={handleSubmit(onSubmit)} enctype="multipart/form-data">
+      <h6
         style={{
           textAlign: "center",
           letterSpacing: "7px",
@@ -64,6 +63,7 @@ const StudentRegistration = () => {
               <InputError error={errors.firstName.message} />
             )}
             <input
+            defaultValue={studentToUpdate.firstName}
               {...register("firstName", {
                 required: {
                   value: true,
@@ -79,6 +79,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="lastName">Last Name</label>
             <input
+            defaultValue={studentToUpdate.lastName}
               {...register("lastName", {
                 required: {
                   value: true,
@@ -99,6 +100,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="email">Email</label>
             <input
+            defaultValue={studentToUpdate.email}
               {...register("email", {
                 required: { value: true, message: "Email is a required field" },
                 pattern: {
@@ -116,6 +118,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="phone">Phone</label>
             <input
+            defaultValue={studentToUpdate.phone}
               {...register("phone", {
                 required: { value: true, message: "Phone is a required field" },
               })}
@@ -132,6 +135,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="dob">Date of Birth</label>
             <input
+            defaultValue={studentToUpdate.dob}
               {...register("dob", {
                 required: {
                   value: true,
@@ -150,6 +154,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="address">Address</label>
             <input
+            defaultValue={studentToUpdate.address}
               {...register("address", {
                 required: {
                   value: true,
@@ -162,7 +167,7 @@ const StudentRegistration = () => {
               name="address"
             />
             {errors.adress?.type === "required" && (
-              <InputError error={errors.adress.message} />
+              <InputError error={errors.address.message} />
             )}
           </div>
         </div>
@@ -170,6 +175,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="standard">Standard</label>
             <select
+             defaultValue={studentToUpdate.standard}
               {...register("standard", {
                 required: {
                   value: true,
@@ -203,9 +209,10 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label htmlFor="stream">Stream</label>
             <select
+             defaultValue={studentToUpdate.stream}
               className={styles.input}
               id="stream"
-              name="standard"
+              name="stream"
               {...register("stream", {
                 required: {
                   value: true,
@@ -245,20 +252,7 @@ const StudentRegistration = () => {
               <InputError error={errors.image.message} />
             )}
           </div> */}
-          <div className="col-sm-6 ic">
-            <label for="image">Choose an image</label>
-            <input
-              onChange={onFileChange}
-              className={styles.input}
-              type="file"
-              id="image"
-              accept="image/*"
-              class="file-input"
-            />
-            {errors.image?.type === "required" && (
-              <InputError error={errors.image.message} />
-            )}
-          </div>
+          
         </div>
         {/* <h2>Stylish Image Uploader</h2>
         <div class="upload-box">
@@ -283,6 +277,7 @@ const StudentRegistration = () => {
           <div className="col-sm-6 ic">
             <label for="parentFirstName">First Name</label>
             <input
+             defaultValue={studentToUpdate.parentFirstName}
               {...register("parentFirstName", {
                 required: {
                   value: true,
@@ -301,6 +296,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="parentLastName">Last Name</label>
             <input
+             defaultValue={studentToUpdate.parentLastName}
               {...register("parentLastName", {
                 required: {
                   value: true,
@@ -321,6 +317,7 @@ const StudentRegistration = () => {
           <div className="col-sm-6 ic">
             <label for="parentEmail">Email</label>
             <input
+             defaultValue={studentToUpdate.parentEmail}
               {...register("parentEmail", {
                 required: {
                   value: true,
@@ -339,6 +336,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="parentPhone">Phone</label>
             <input
+             defaultValue={studentToUpdate.parentPhone}
               {...register("parentPhone", {
                 required: {
                   value: true,
@@ -355,11 +353,10 @@ const StudentRegistration = () => {
             )}
           </div>
         </div>
-
-        <button type="submit">Register</button>
+        <button type="submit">Update</button>
       </form>
     </div>
   );
 };
 
-export default StudentRegistration;
+export default StudentUpdate;

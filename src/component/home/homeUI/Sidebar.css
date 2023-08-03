@@ -6,9 +6,10 @@
   width: 16vw;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  /* align-items: start;
+  justify-content: flex-start; */
   transition: all 0.3s ease;
-  background-color: var(--light-blue);
+  background-color: var(--dark-blue);
   padding: 1rem;
   z-index: 111;
 }
@@ -23,8 +24,12 @@
 
 .sidebar-icon {
   display: none;
+  position: relative;
+  top: 15px;
 }
-
+.sidebar-content{
+  width: 100%;
+}
 .profile-picture-container {
   width: 100%;
   display: flex;
@@ -73,7 +78,7 @@
     background-color: transparent;
   }
   .sidebar-container.active {
-    background-color: var(--light-blue);
+    background-color: var(--dark-blue);
     width: 33vw;
   }
   .sidebar-container > div {
@@ -87,7 +92,7 @@
 @media (max-width: 600px) {
 
     .sidebar-container.active {
-      background-color: var(--light-blue);
+      background-color: var(--dark-blue);
       width: 40vw;
     }
 
@@ -96,7 +101,7 @@
   @media (max-width: 450px) {
 
     .sidebar-container.active {
-      background-color: var(--light-blue);
+      background-color: var(--dark-blue);
       width: 50vw;
     }
 

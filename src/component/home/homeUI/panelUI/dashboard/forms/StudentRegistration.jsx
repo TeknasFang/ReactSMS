@@ -19,6 +19,22 @@ const StudentRegistration = () => {
     formState: { errors },
   } = useForm();
 
+  let dummyData = {
+    email: 'example@example.com',
+    phone: '1234567890',
+    dob: '1995-01-01',
+    standard: '12th',
+    firstName: 'John',
+    lastName: 'Doe',
+    address: '123 Main St, City',
+    stream: 'Science',
+    parentFirstName: 'Jane',
+    parentLastName: 'Doe',
+    parentEmail: 'parent@example.com',
+    parentPhone: '9876543210',
+    imageFileName: 'profile.jpg',
+    username: 'john_doe',
+    password: 'password123'}
   function onFileChange(e) {
     console.log(e.target.files);
     setImg(e.target.files[0]);
@@ -64,6 +80,7 @@ const StudentRegistration = () => {
               <InputError error={errors.firstName.message} />
             )}
             <input
+            defaultValue={dummyData.firstName}
               {...register("firstName", {
                 required: {
                   value: true,
@@ -79,6 +96,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="lastName">Last Name</label>
             <input
+            defaultValue={dummyData.lastName}
               {...register("lastName", {
                 required: {
                   value: true,
@@ -99,6 +117,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="email">Email</label>
             <input
+            defaultValue={dummyData.email}
               {...register("email", {
                 required: { value: true, message: "Email is a required field" },
                 pattern: {
@@ -116,6 +135,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="phone">Phone</label>
             <input
+            defaultValue={dummyData.phone}
               {...register("phone", {
                 required: { value: true, message: "Phone is a required field" },
               })}
@@ -132,6 +152,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="dob">Date of Birth</label>
             <input
+            defaultValue={dummyData.dob}
               {...register("dob", {
                 required: {
                   value: true,
@@ -150,6 +171,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="address">Address</label>
             <input
+            defaultValue={dummyData.address}
               {...register("address", {
                 required: {
                   value: true,
@@ -170,6 +192,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="standard">Standard</label>
             <select
+            defaultValue={dummyData.standard}
               {...register("standard", {
                 required: {
                   value: true,
@@ -203,6 +226,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label htmlFor="stream">Stream</label>
             <select
+            defaultValue={dummyData.stream}
               className={styles.input}
               id="stream"
               name="standard"
@@ -283,6 +307,7 @@ const StudentRegistration = () => {
           <div className="col-sm-6 ic">
             <label for="parentFirstName">First Name</label>
             <input
+            defaultValue={dummyData.parentFirstName}
               {...register("parentFirstName", {
                 required: {
                   value: true,
@@ -301,6 +326,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="parentLastName">Last Name</label>
             <input
+            defaultValue={dummyData.parentLastName}
               {...register("parentLastName", {
                 required: {
                   value: true,
@@ -321,6 +347,7 @@ const StudentRegistration = () => {
           <div className="col-sm-6 ic">
             <label for="parentEmail">Email</label>
             <input
+            defaultValue={dummyData.parentEmail}
               {...register("parentEmail", {
                 required: {
                   value: true,
@@ -339,6 +366,7 @@ const StudentRegistration = () => {
           <div className="col-md-6 ic">
             <label for="parentPhone">Phone</label>
             <input
+            defaultValue={dummyData.parentPhone}
               {...register("parentPhone", {
                 required: {
                   value: true,
